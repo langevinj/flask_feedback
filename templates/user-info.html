@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ curr_user.username }}{% endblock %}
+
+{% block nav %}<form action="/logout"><button>Logout</button></form>{% endblock %}
+
+{% block content %}
+
+
+
+<h1>{{curr_user.first_name}}</h1>
+<div class="container">
+    <p>Username: {{curr_user.username }}</p>
+    <p>Email: {{curr_user.email}}</p>
+    <p>Name: {{curr_user.first_name}} {{curr_user.last_name}}</p>
+</div>
+
+<div class="container">
+    <h2>Feedback</h2>
+    <ul>
+        {% for feedback in user_feedback %}
+            <li><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}</a><button><a href="/feedback/{{feedback.id}}/delete" method="POST">Delete</a></button></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="container">
+    <form action="/users/{{curr_user.username}}/delete" method="POST">
+        <button><a href="/users/{{curr_user.username}}/feedback/add">Add Feeback</a></button>
+        <button>Delete User</button>
+    </form>
+    
+</div>
+{% endblock %}
